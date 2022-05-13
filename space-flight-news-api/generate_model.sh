@@ -6,4 +6,4 @@ do
         m) module=${OPTARG};;
     esac
 done
-cd src/modules && mkdir -p $module/{useCases,dtos,infra/{orm/entities,repositories/implements},interfaces/{controllers,routes}}
+cd src/modules && mkdir -p $module/{domain,useCases,dtos,infra/{orm/entities,repositories/implements},interfaces/{controllers,routes}}
