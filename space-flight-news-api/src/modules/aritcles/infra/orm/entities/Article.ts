@@ -1,4 +1,4 @@
-import { ILaunchesAndEventsProps } from "modules/aritcles/domain/article";
+import { ILaunchesAndEventsProps } from "modules/aritcles/domain/IArticle";
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("articles")
@@ -19,13 +19,16 @@ export class Article {
   imageUrl: string;
 
   @Column()
-  newSite: string;
+  newsSite: string;
   
   @Column()
   summary: string;
 
   @Column()
   publishedAt: string;
+
+  @Column()
+  updatedAt: string;
 
   @Column("jsonb", { array: true })
   launches: ILaunchesAndEventsProps[];
