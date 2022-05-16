@@ -1,15 +1,16 @@
-import { IArticle } from "modules/aritcles/domain/article";
+import { IArticle } from "../../domain/IArticle";
 import { Article } from "../orm/entities/Article";
-import { IArticleRepository } from "./IArticlesRepository";
+import { IArticlesRepository } from "./IArticlesRepository";
 
-export class ArticlesRepositoryInMemory implements IArticleRepository {
-  private articles: IArticle[];
+export class ArticlesRepositoryInMemory implements IArticlesRepository {
+  private articles: IArticle[] = [];
 
   async create(article: IArticle): Promise<IArticle | undefined> {
     const articleObj = new Article();
     const id = this.articles.length + 1;
 
     Object.assign(articleObj, { id }, article);
+    this.articles.push(articleObj);
 
     return articleObj;
   }
@@ -19,8 +20,11 @@ export class ArticlesRepositoryInMemory implements IArticleRepository {
   }
 
   async findById(id: number): Promise<IArticle | undefined> {
-    const article = this.articles.find((article) => article.id === id);
-    return article;
+    return this.articles.find((article) => article.id === id);
+  }
+
+  async findByTitle(title: string): Promise<IArticle | undefined> {
+    return this.articles.find((article) => article.title === title);
   }
 
   async update(id: number, article: IArticle): Promise<IArticle | undefined> {
@@ -31,7 +35,7 @@ export class ArticlesRepositoryInMemory implements IArticleRepository {
       existArticle.title = article.title || existArticle.title;
       existArticle.url = article.url || existArticle.url;
       existArticle.imageUrl = article.imageUrl || existArticle.imageUrl;
-      existArticle.newSite = article.newSite || existArticle.newSite;
+      existArticle.newsSite = article.newsSite || existArticle.newsSite;
       existArticle.summary = article.summary || existArticle.summary;
       existArticle.publishedAt = article.publishedAt || existArticle.publishedAt;
       existArticle.launches = article.launches || existArticle.launches;
