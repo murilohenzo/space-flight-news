@@ -1,5 +1,9 @@
-import { ILaunchesAndEventsProps } from "modules/aritcles/domain/IArticle";
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+
+interface ILaunchesAndEventsProps {
+  id: string;
+  provider: string;
+}
 
 @Entity("articles")
 export class Article {

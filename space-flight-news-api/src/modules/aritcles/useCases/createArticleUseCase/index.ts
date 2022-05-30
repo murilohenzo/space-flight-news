@@ -1,7 +1,8 @@
-import { IArticle } from "../../domain/IArticle";
-import { ICreateArticleDTO } from "../../dtos/ICreateArticleDTO";
-import { IArticlesRepository } from "../../infra/repositories/IArticlesRepository";
 import { injectable, inject } from "tsyringe";
+
+import { ICreateArticleDTO } from "../../dtos/ICreateArticleDTO";
+import { Article } from "../../infra/orm/entities/Article";
+import { IArticlesRepository } from "../../infra/repositories/IArticlesRepository";
 
 import { AppError } from "../../../../shared/errors/AppError";
 import { StatusCodes } from "http-status-codes";
@@ -13,7 +14,7 @@ export class CreateArticleUseCase {
     private readonly articlesRepository: IArticlesRepository
   ) {}
 
-  async execute(article: ICreateArticleDTO): Promise<IArticle | undefined> {
+  async execute(article: ICreateArticleDTO): Promise<Article | undefined> {
     const existsArticle = await this.articlesRepository.findByTitle(article.title);
     if (existsArticle) throw new AppError("O artigo ja existe", StatusCodes.CONFLICT);
 
