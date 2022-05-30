@@ -1,4 +1,5 @@
 export interface ICreateArticleDTO {
+  readonly id?: number;
   featured: boolean;
   title: string;
   url: string;
@@ -6,6 +7,7 @@ export interface ICreateArticleDTO {
   newsSite: string;
   summary: string;
   publishedAt: string;
+  updatedAt?: string;
   launches?: ILaunchesAndEventsProps[];
   events?: ILaunchesAndEventsProps[];
 }

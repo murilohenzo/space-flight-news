@@ -1,11 +1,10 @@
-import { IArticle } from "../../domain/IArticle";
 import { Article } from "../orm/entities/Article";
 import { IArticlesRepository } from "./IArticlesRepository";
 
 export class ArticlesRepositoryInMemory implements IArticlesRepository {
-  private articles: IArticle[] = [];
+  private articles: Article[] = [];
 
-  async create(article: IArticle): Promise<IArticle | undefined> {
+  async create(article: Article): Promise<Article | undefined> {
     const articleObj = new Article();
     const id = this.articles.length + 1;
 
@@ -15,19 +14,19 @@ export class ArticlesRepositoryInMemory implements IArticlesRepository {
     return articleObj;
   }
 
-  async findAll(take: number, page: number): Promise<IArticle[] | undefined> {
+  async findAll(take: number, page: number): Promise<Article[] | undefined> {
     return this.articles.slice((page - 1) * take, page * take);
   }
 
-  async findById(id: number): Promise<IArticle | undefined> {
+  async findById(id: number): Promise<Article | undefined> {
     return this.articles.find((article) => article.id === id);
   }
 
-  async findByTitle(title: string): Promise<IArticle | undefined> {
+  async findByTitle(title: string): Promise<Article | undefined> {
     return this.articles.find((article) => article.title === title);
   }
 
-  async update(id: number, article: IArticle): Promise<IArticle | undefined> {
+  async update(id: number, article: Article): Promise<Article | undefined> {
     const existArticle = this.articles.find((article) => article.id === id);
 
     if (existArticle !== undefined) {
